@@ -1,23 +1,32 @@
-const express = require('express');
-const connectDB = require('./config/db.config');
-// const cors = require('cors');
-// const helmet = require('helmet');
-// const { notFound, errorHandler } = require('./middleware/error.middleware');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+// const { notFound, errorHandler } = require("./middleware/error.middleware");
+const connectDB = require("./config/db.config");
+const authRoutes = require("./routes/auth.routes");
+// const taskRoutes = require("./routes/task.routes");
+require("dotenv").config();
 const app = express();
+
+// Connect to database
 connectDB();
-// // Middleware
-// app.use(helmet());
-// app.use(cors());
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
 
-// // Health check route
-// app.get('/api/health', (req, res) => {
-//   res.status(200).json({ status: 'OK' });
-// });
+// Middleware
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// // Error handling middleware
+// Routes
+app.use("/api/auth", authRoutes);
+// app.use("/api/tasks", taskRoutes);
+
+// Health check route
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "OK" });
+});
+
+// Error handling middleware
 // app.use(notFound);
 // app.use(errorHandler);
 
