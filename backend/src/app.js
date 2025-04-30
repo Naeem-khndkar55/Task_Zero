@@ -1,10 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-// const { notFound, errorHandler } = require("./middleware/error.middleware");
+const { notFound, errorHandler } = require("./middleware/error.middleware");
 const connectDB = require("./config/db.config");
 const authRoutes = require("./routes/auth.routes");
-// const taskRoutes = require("./routes/task.routes");
+const taskRoutes = require("./routes/task.routes");
 require("dotenv").config();
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/auth", authRoutes);
-// app.use("/api/tasks", taskRoutes);
+app.use("/api/tasks", taskRoutes);
 
 // Health check route
 app.get("/api/health", (req, res) => {
@@ -27,7 +27,7 @@ app.get("/api/health", (req, res) => {
 });
 
 // Error handling middleware
-// app.use(notFound);
-// app.use(errorHandler);
+app.use(notFound);
+app.use(errorHandler);
 
 module.exports = app;
