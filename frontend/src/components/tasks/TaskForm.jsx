@@ -140,7 +140,7 @@ const TaskFormModal = ({
                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
                   >
                     <option value="Pending">Pending</option>
-                    <option value="All_Task">All Task</option>
+
                     <option value="On_going">On going</option>
                     <option value="Collaborative_Task">
                       Collaborative Task

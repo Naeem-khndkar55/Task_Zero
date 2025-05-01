@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, L } from "react";
+import { Link } from "react-router-dom";
 
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
@@ -97,9 +98,7 @@ const ResetPassword = () => {
             <span
               onClick={handleTogglePassword}
               className="absolute right-4 top-10 cursor-pointer text-gray-500"
-            >
-              👁️
-            </span>
+            ></span>
           </div>
 
           {/* Confirm Password */}
@@ -123,9 +122,7 @@ const ResetPassword = () => {
             <span
               onClick={handleTogglePassword}
               className="absolute right-4 top-10 cursor-pointer text-gray-500"
-            >
-              👁️
-            </span>
+            ></span>
           </div>
 
           {/* Submit */}
@@ -136,6 +133,15 @@ const ResetPassword = () => {
             Reset Password
           </button>
         </form>
+        <div className="mt-6 text-center text-sm text-gray-600">
+          Remember Password?{" "}
+          <Link
+            to="/login"
+            className="font-medium text-green-600 hover:text-blue-500"
+          >
+            Login here
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -28,26 +28,6 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <StatsCard title="Total Tasks" value={tasks.length} icon="📋" />
-        <StatsCard
-          title="Done"
-          value={tasks.filter((t) => t.status === "Done").length}
-          icon="🚧"
-        />
-        <StatsCard
-          title="On_going"
-          value={tasks.filter((t) => t.status === "On_going").length}
-          icon="🚧"
-        />
-        <StatsCard
-          title="Pending"
-          value={tasks.filter((t) => t.status === "Pending").length}
-          icon="🚧"
-        />
-        <StatsCard
-          title="Collaborative_Task"
-          value={tasks.filter((t) => t.status === "Collaborative_Task").length}
-          icon="🚧"
-        />
       </div>
 
       <div className="bg-white rounded-lg shadow overflow-hidden">
