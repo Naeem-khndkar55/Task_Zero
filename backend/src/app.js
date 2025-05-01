@@ -7,7 +7,7 @@ const authRoutes = require("./routes/auth.routes");
 const taskRoutes = require("./routes/task.routes");
 require("dotenv").config();
 const app = express();
-
+const url = process.env.CLIENT_URL;
 // Connect to database
 connectDB();
 
@@ -15,7 +15,7 @@ connectDB();
 app.use(helmet());
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [url],
 
     credentials: true,
   })
