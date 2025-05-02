@@ -16,7 +16,6 @@ const TaskItem = ({ task }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleDelete = async () => {
-    toast.warn("You're about to delete a task!");
     if (window.confirm("Are you sure you want to delete this task?")) {
       await deleteTask(task._id);
       toast.success("Task Deleted");
