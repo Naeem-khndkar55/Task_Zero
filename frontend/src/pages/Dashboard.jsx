@@ -1,38 +1,65 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTasks } from "../context/TaskContext";
-import TaskList from "../components/tasks/TaskList";
-import TaskFormModal from "../components/tasks/TaskForm";
-import StatsCard from "../components/ui/StatsCard";
+import TaskForm from "../components/tasks/TaskForm";
+import TaskBoard from "../components/tasks/TaskList";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
 const Dashboard = () => {
-  const { tasks, getTasks, loading } = useTasks();
+  const { tasks, getTasks } = useTasks();
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [categoryFilter, setCategoryFilter] = useState("All");
 
   useEffect(() => {
     getTasks();
   }, []);
 
+  const filteredTasks = tasks.filter((task) => {
+    const matchesStatus =
+      statusFilter === "All" || task.status === statusFilter;
+    const matchesCategory =
+      categoryFilter === "All" || task.category === categoryFilter;
+    return matchesStatus && matchesCategory;
+  });
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Task Dashboard</h1>
-        <TaskFormModal
-          triggerButton={
-            <button className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
-              <PlusIcon className="h-5 w-5" />
-              Add Task
-            </button>
-          }
-        />
+    <div className="p-6">
+      <div className="flex flex-wrap items-center justify-between mb-6 gap-4">
+        <h2 className="text-2xl font-semibold text-gray-800">All Task List</h2>
+
+        <div className="flex gap-4 items-center">
+          <select
+            className="border rounded-md px-3 py-2 text-sm text-gray-600"
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <option value="All Categories">All Categories</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+
+          <select
+            className="border rounded-md px-3 py-2 text-sm text-gray-600"
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="All">All Task</option>
+            <option value="Pending">Pending</option>
+            <option value="InProgress">In Progress</option>
+            <option value="Done">Done</option>
+          </select>
+
+          {/* Add Task Button */}
+          <TaskForm
+            triggerButton={
+              <button className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
+                <PlusIcon className="w-4 h-4 mr-2" />
+                Add New Task
+              </button>
+            }
+          />
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <StatsCard title="Total Tasks" value={tasks.length} icon="📋" />
-      </div>
-
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <TaskList />
-      </div>
+      <TaskBoard tasks={filteredTasks} />
     </div>
   );
 };

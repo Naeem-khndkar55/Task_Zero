@@ -3,7 +3,7 @@ import { Dialog } from "@headlessui/react";
 import { useTasks } from "../../context/TaskContext";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-const TaskFormModal = ({
+const TaskForm = ({
   isOpen: propsIsOpen,
   onClose: propsOnClose,
   taskToEdit,
@@ -22,10 +22,7 @@ const TaskFormModal = ({
   );
 
   const handleChange = (e) => {
-    setTask({
-      ...task,
-      [e.target.name]: e.target.value,
-    });
+    setTask({ ...task, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -71,31 +68,33 @@ const TaskFormModal = ({
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="w-full max-w-md rounded-lg bg-white p-6">
-            <div className="flex justify-between items-center mb-4">
-              <Dialog.Title className="text-xl font-bold text-gray-900">
+          <Dialog.Panel className="w-full max-w-2xl rounded-xl bg-white shadow-xl p-6">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-6">
+              <Dialog.Title className="text-2xl font-bold text-gray-900">
                 {taskToEdit ? "Edit Task" : "Create New Task"}
               </Dialog.Title>
               <button
                 onClick={handleClose}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-gray-400 hover:text-gray-600"
               >
                 <XMarkIcon className="h-6 w-6" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Title *
+                  Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   name="title"
                   value={task.title}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
                   required
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-indigo-200"
                 />
               </div>
 
@@ -108,10 +107,11 @@ const TaskFormModal = ({
                   value={task.description}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-indigo-200"
                 />
               </div>
 
+              {/* Grid Layout */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -121,7 +121,7 @@ const TaskFormModal = ({
                     name="priority"
                     value={task.priority}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -137,10 +137,9 @@ const TaskFormModal = ({
                     name="status"
                     value={task.status}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
                   >
                     <option value="Pending">Pending</option>
-
                     <option value="On_going">On going</option>
                     <option value="Collaborative_Task">
                       Collaborative Task
@@ -158,22 +157,23 @@ const TaskFormModal = ({
                     name="dueDate"
                     value={task.dueDate}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end space-x-3 pt-4">
+              {/* Footer Buttons */}
+              <div className="flex justify-end gap-4 pt-4">
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                  className="bg-gray-100 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-200"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                  className="bg-emerald-500 text-white px-4 py-2 rounded-md hover:bg-emerald-600"
                 >
                   {taskToEdit ? "Update Task" : "Create Task"}
                 </button>
@@ -186,4 +186,4 @@ const TaskFormModal = ({
   );
 };
 
-export default TaskFormModal;
+export default TaskForm;
