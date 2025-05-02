@@ -15,9 +15,9 @@ const Dashboard = () => {
 
   const filteredTasks = tasks.filter((task) => {
     const matchesStatus =
-      statusFilter === "All" || task.status === statusFilter;
+      statusFilter === "All Task" || task.status === statusFilter;
     const matchesCategory =
-      categoryFilter === "All" || task.category === categoryFilter;
+      categoryFilter === "All Task" || task.category === categoryFilter;
     return matchesStatus && matchesCategory;
   });
 
@@ -39,15 +39,21 @@ const Dashboard = () => {
 
           <select
             className="border rounded-md px-3 py-2 text-sm text-gray-600"
-            onChange={(e) => setStatusFilter(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === "On Going") {
+                setStatusFilter("On going");
+              } else {
+                setStatusFilter(value);
+              }
+            }}
           >
-            <option value="All">All Task</option>
+            <option value="All Task">All Task</option>
             <option value="Pending">Pending</option>
-            <option value="InProgress">In Progress</option>
+            <option value="On Going">In Progress</option>
             <option value="Done">Done</option>
           </select>
 
-          {/* Add Task Button */}
           <TaskForm
             triggerButton={
               <button className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
