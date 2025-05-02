@@ -1,3 +1,4 @@
+###project initialization
 1.clone the reop
 2.fronten:
 --go to frontend folder and run "npm install"
