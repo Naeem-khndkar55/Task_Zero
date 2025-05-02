@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { useTasks } from "../../context/TaskContext";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-
+import { toast } from "react-toastify";
 const TaskForm = ({
   isOpen: propsIsOpen,
   onClose: propsOnClose,
@@ -30,8 +30,10 @@ const TaskForm = ({
     try {
       if (taskToEdit) {
         await updateTask(taskToEdit._id, task);
+        toast.success("Task Edited successfully!");
       } else {
         await createTask(task);
+        toast.success("Task created successfully!");
       }
       handleClose();
     } catch (error) {

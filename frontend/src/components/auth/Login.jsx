@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { toast } from "react-hot-toast";
+// import { toast } from "react-hot-toast";
 import loginimg from "../../assets/login.svg";
+import { toast } from "react-toastify";
 const Login = () => {
   const [credentials, setCredentials] = useState({
     email: "",
